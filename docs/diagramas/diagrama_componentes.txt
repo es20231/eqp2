@@ -1,0 +1,21 @@
+@startuml
+!theme blueprint
+/' Componentes e pacotes '/
+
+[Usuário]
+[Navegador]
+[Sistema de E-mail]
+
+package "Sistema" {
+    [Aplicação Web(Django)]
+    [Base de Dados(SQLite3)]
+}
+
+/' Relações '/
+
+[Usuário] --> [Navegador] : usa
+[Navegador] --> [Aplicação Web(Django)] : usa
+[Aplicação Web(Django)] --> [Base de Dados(SQLite3)] : lê/escreve
+[Aplicação Web(Django)] --> [Sistema de E-mail] : cria e-mail
+[Sistema de E-mail] --> [Usuário] : envia e-mail
+@enduml
