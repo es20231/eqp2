@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block conteudo %}
+<div class="container">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+
+        <div>
+            {% if visitante.status == "AGUARDANDO" %}
+                <a href="#" class="btn btn-success btn-icon-split btn-sm" data-toggle="modal" data-target="#modal1">
+                    <span class="text">Autorizar entrada</span>
+
+                    <span class="icon text-white-50">
+                        <i class="fas fa-user-check"></i>
+                    </span>
+                </a>
+            {% endif %}
+            
+            {% if visitante.status == "EM_VISITA" %}
+            <a href="#" class="btn btn-warning btn-icon-split btn-sm" data-toggle="modal" data-target="#modal2">
+                <span class="text">Finalizar visita</span>
+
+                <span class="icon text-white-50">
+                    <i class="fas fa-door-open"></i>
+                </span>
+            </a>
+            {% endif %}
+
+        </div>
+    </div>
+    
+    <div class="card shadow mb-4">        
+        <div class="card-body">
+            <h4 class="mb-3 text-primary">
+                Informações gerais
+            </h4>
+        
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label>Horário de chegada</label>
+                        <input type="text" class="form-control" value="{{ visitante.horario_chegada }}" disabled>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Número da casa a ser visitada</label>
+                        <input type="text" class="form-control" value="{{ visitante.numero_casa }}" disabled>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Status</label>
+                        <input type="text" class="form-control" value="{{ visitante.get_status_display }}" disabled>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label>Horário de autorização de entrada</label>
+                        <input type="text" class="form-control" value="{{ visitante.get_horario_autorizacao }}" disabled>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Entrada autorizada por</label>
+                        <input type="text" class="form-control" value="{{ visitante.get_morador_responsavel }}" disabled>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Horário de saída</label>
+                        <input type="text" class="form-control" value="{{ visitante.get_horario_saida }}" disabled>
+                    </div>
+                </div>
+            </form>
+        
+            <h4 class="mb-3 mt-4 text-primary">
+                Informações pessoais
+            </h4>
+            
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Nome completo</label>
+                        <input type="text" class="form-control" value="{{ visitante.nome_completo }}" disabled>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>CPF</label>
+                        <input type="text" class="form-control" value="{{ visitante.get_cpf }}" disabled>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Data de nascimento</label>
+                        <input type="text" class="form-control" value="{{ visitante.data_nascimento }}" disabled>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Placa do veículo</label>
+                        <input type="text" class="form-control" value="{{ visitante.get_placa_veiculo }}" disabled>
+                    </div>
+                </div>
+            </form>
+                    
+            <p class="mr-2 mt-3 mb-4 text-right">
+                <small>
+                    Visitante registrado em {{ visitante.horario_chegada }} por {{ visitante.registrado_por }}
+                </small>
+            </p>
+        
+            <div class="mr-1 text-right">
+                <a href="{% url 'index' %}" class="btn btn-secondary text-white" type="button">
+                    <span class="text">Voltar</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Autorizar entrada de visitante</h5>
+                    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+    
+                        <div class="form-group">
+                            <label for="id_morador_responsavel" class="col-form-label">Nome do morador responsável por autorizar a entrada do visitante:</label>
+                            {% render_field form.morador_responsavel placeholder="Nome do morador responsável por autorizar a entrada do visitante" class="form-control" %}
+                        </div>
+                            
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Autorizar entrada</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Finalizar visita</h5>
+                        
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="modal-body">
+                        <h5 class="mb-3">
+                            Realmente deseja encerrar a visita?
+                        </h5>
+    
+                        <form method="post" action="{% url 'finalizar_visita' id=visitante.id %}">
+                            {% csrf_token %}
+    
+                            <input hidden>
+    
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Finalizar visita</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

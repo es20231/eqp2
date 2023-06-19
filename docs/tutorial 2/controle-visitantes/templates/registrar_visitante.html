@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block conteudo %}
+
+<div class="container">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h4 class="mb-3 text-primary">
+                Formulário para registro de novo visitante
+            </h4>
+
+            <p class="mb-5 ml-1">
+                <small>
+                    O asterisco (*) indica que o campo é obrigatório
+                </small>
+            </p>
+
+            {% if form.errors %}
+                {% for field in form %}
+                    {% if field.errors %}
+                        {% for erro in field.errors %}
+                            <div class="alert alert-warning" role="alert">
+                                {{ erro }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" enctype='multipart/form-data'>
+                <div class="form-row">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="form-group col-md-12">
+                            <label>{{  field.label  }} {% if field.field.required %} * {% endif %}</label>
+                            {% render_field field class="form-control" %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="text-right"> 
+                    <a href="{% url 'index' %}" class="btn btn-secondary text-white" type="button">
+                        <span class="text">Cancelar</span>
+                    </a>
+
+                    <button class="btn btn-primary" type="submit">
+                        <span class="text">Registrar Visitante</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock conteudo %}
