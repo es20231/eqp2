@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="listagem_de_usuarios">
+      <h1>Listagem</h1>
+      <br> 
+      {% for usuario in usuarios %} 
+      <p>{{usuario.nome_de_usuario}}</p> 
+      <p>{{usuario.nome_completo}}</p>
+      <p>{{usuario.email}}</p>
+      <p>{{usuario.senha}}</p>
+      <br>
+      {% endfor %}
+  </div>
+  </body>
+</html>

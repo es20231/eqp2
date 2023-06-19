@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div class="cadastro">
+      <form method="POST">
+          <legend>Cadastro</legend>
+          {% csrf_token %}
+          {{ formulario_de_cadastro.as_div }}
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  </div>
+  </body>
+</html>
