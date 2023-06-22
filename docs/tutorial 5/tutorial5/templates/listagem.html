@@ -1,0 +1,17 @@
+<!doctype HTML>
+<html>
+<body>
+	<div id="ListagemPage">
+		<h1>Listagem</h1>
+
+	    {% for entrada in object_list %}
+	    
+	    <img src='{{ entrada.imagem.url }}'></img>
+	    <p>{{entrada.descricao}}</p>
+	    
+	    {% endfor %}
+
+		<a href="/">Voltar</a>
+	</div>
+</body>
+</html>
