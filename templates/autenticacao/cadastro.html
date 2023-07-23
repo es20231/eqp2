@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+        <div class="container">
+            <link rel="stylesheet" href="{% static 'css/autenticacao/cadastro-style.css' %}"/>
+            <form action="{% url 'cadastro' %}" method="POST"> {% csrf_token %}
+                <div class="form-group">
+                    <h1 id="title">SnapTure</h1>
+                    <input type="text" class="form-control" placeholder="Nome completo" id="nome-completo" name="nome_completo">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Nome de usuário" id="usuario" name="usuario">
+                </div>
+
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Email" id="email" name="email">
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Senha" id="senha" name="senha">
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Confirmação de Senha" id="senha" name="senha_confirmada">
+                </div>
+
+                <center>
+                    <button id="btn" style="width:100;height:auto;">Cadastrar</button>
+                </center>
+                <center>
+                    <h2 id="footer">
+                        Já tem um conta? <a href="http://127.0.0.1:8000/autenticacao/login/" target="_blank">Conecte-se!<a>
+                    </h2>
+                </center>
+            </form>
+        </div>
+{% endblock %}
