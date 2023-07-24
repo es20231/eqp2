@@ -4,6 +4,7 @@
 {% block content %}
         <div class="container" >
             <link rel="stylesheet" href="{% static 'css/autenticacao/login-style.css' %}" />
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
             <form action="{% url 'login' %}" method="POST"> {% csrf_token %}
                 <div class="form-group">
                     <h1 id="title">SnapTure</h1>
@@ -13,6 +14,7 @@
                 <div class="form-group">
                     <input type="password" class="form-control" placeholder="Senha" id="senha" name="senha">
                 </div>
+
                 <center>
                     <button id="btn" style="width:90;height:30">Entrar</button>
                 </center>
@@ -22,5 +24,12 @@
                 </h2>
                 </center> 
             </form>
+            {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <div class="alert {{ message.tags }}" role="alert">{{ message }}</div>
+                        {% endfor %}
+                    </ul>
+            {% endif %}
         </div>
 {% endblock %}

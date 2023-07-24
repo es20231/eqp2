@@ -2,6 +2,8 @@ from django.shortcuts import render, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as django_login
+from django.contrib.auth import logout as django_logout
+from django.contrib import messages
 from django.shortcuts import redirect
 from dashboard import views as dashboard_views
 
@@ -22,17 +24,20 @@ def cadastro(request):
 
         # Verifica se todos os campos foram preenchidos
         if any([not usuario, not email, not senha, not senha_confirmada, not nome]):
-            return HttpResponse('Todos os campos são obrigatórios')
+            messages.warning(request, 'Todos os campos são obrigatórios')
+            return redirect(cadastro)
 
         # Verifica se o usuário já existe
         email_existe = User.objects.filter(email=email).exists()
 
         if email_existe:
-            return HttpResponse('Email já cadastrado')
+            messages.error(request, 'Email já cadastrado')
+            return redirect(cadastro)
         
         else:
             if senha != senha_confirmada:
-                return HttpResponse('Senhas não conferem')
+                messages.error(request, 'Senhas não conferem')
+                return redirect(cadastro)
             
             # Cria o usuário
             novo_usuario = User.objects.create_user(usuario, email, senha)
@@ -43,7 +48,7 @@ def cadastro(request):
             novo_usuario.last_name = ' '.join(nome_usuario_completo[1:])
             novo_usuario.save()
 
-            return HttpResponse(novo_usuario.get_full_name())
+            return redirect(login)
 
 def login(request):
     """Função que realiza o login do usuário"""
@@ -57,7 +62,8 @@ def login(request):
 
         # Verifica se todos os campos foram preenchidos
         if any([not email, not senha]):
-            return HttpResponse('Todos os campos são obrigatórios')
+            messages.warning(request, 'Todos os campos são obrigatórios')
+            return redirect(login) 
         
         # Como o Django não permite logar com email, precisamos pegar o username
         try:
@@ -72,7 +78,16 @@ def login(request):
                 return redirect(dashboard_views.dashboard)
 
             else:
-                return HttpResponse('Usuário ou senha inválidos')
-
+                messages.error(request, 'Usuário ou senha inválidos')
+                #return render(request, 'autenticacao/login.html')
+                return redirect(login)
+            
         except User.DoesNotExist:
-            return HttpResponse('Usuário ou senha inválidos')
+            messages.error(request, 'Usuário ou senha inválidos')
+            return redirect(login)
+
+def logout(request):
+    """Função que realiza o logout do usuário"""
+
+    django_logout(request)
+    return redirect(login)
