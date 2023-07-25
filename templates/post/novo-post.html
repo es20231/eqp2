@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+        <div class="container align-self-start">
+            <link rel="stylesheet" href="../../static/css/post/novo-post-style.css"/>
+
+            <div class="row row-cols-2">
+
+                <div class="col">
+
+                    <div class="container-lg align-self-center">
+                        <div class="container-lg-img align-self-center"> <img src="{{ post_form.imagem.url }}"> </div>
+                        
+                        <div class="container-lg-desc align-self-center" id="texto-descricao"> 
+                            <p>Descrição da Publicação</p>
+                            <hr id="linha-horizontal">
+                            <div class="form-group">
+                                <input type="text" id="descricao" placeholder="Descrição da Publicação"></input>
+                            </div>
+                            <button id="btn">Publicar</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
