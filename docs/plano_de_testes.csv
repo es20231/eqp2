@@ -1,13 +1,13 @@
 ID, Caso de Teste, Tipo de Teste, Protótipo, Resultado
-TU-01-c1, Verifica se a tabela de usuários é criada corretamente no banco de dados, Unitário, P1, 
-TU-01-c2, Verifica se o método ___ está cadastrando usuários no BD corretamente, Unitário, P1,
-TU-02-c1, Verifica se o método ___ está salvando imagens no Dashboard do usuário, Unitário, P1,
-TU-02-c2, Verifica se o método ___ está removendo imagens no Dashboard do usuário, Unitário, P1,
-TU-03-c1, Verifica se o método ___ está visualizando posts no Feed do usuário, Unitário, P1,
-TU-04-c1, Verifica se a tabela de posts é criada no banco de dados corretamente, Unitário, P1,
-TU-04-c2, Verifica se o método ___ está cadastrando posts a partir de uma imagem no Dashboard, Unitário, P1,
-TS-01-c1, Fluxo principal - Fluxo para logar com um usuário válido, Sistema, P1,
-TS-01-c2, Fluxo de exceção - Fluxo para logar com um usuário inválido, Sistema, P1,
-TS-02-c1, Fluxo principal - Fluxo para salvar uma imagem no Dashboard do usuário, Sistema, P1,
-TS-03-c1, Fluxo principal - Fluxo para visualizar um post no feed, Sistema, P1,
-TS-04-c1, Fluxo principal - Fluxo para criar um post a partir de uma imagem no dashboard, Sistema, P1,
+TU-01-c1, Verifica se a tabela de usuários é criada corretamente no banco de dados, Unitário, P1, Passou
+TU-01-c2, Verifica se o método test_cadastro está cadastrando usuários no BD corretamente, Unitário, P1, Passou
+TU-02-c1, Verifica se o método test_salvarImagem está salvando imagens no Dashboard do usuário, Unitário, P1,Passou
+TU-03-c1, Verifica se a tabela de posts é criada no banco de dados corretamente, Unitário, P1, Passou
+TU-03-c2, Verifica se o método test_publicar está cadastrando posts, Unitário, P1,Passou
+TU-03-c3, Verifica se o método test_visualizar está visualizando posts, Unitário, P1,Passou
+TU-04-c3, Verifica se o método ___ está criando posts no Feed do usuário, Unitário, P1, 
+TS-01-c1, Fluxo principal - Fluxo para logar com um usuário válido, Sistema, P1, Passou
+TS-01-c2, Fluxo de exceção - Fluxo para logar com um usuário inválido, Sistema, P1, Passou
+TS-02-c1, Fluxo principal - Fluxo para salvar uma imagem no Dashboard do usuário, Sistema, P1, Passou
+TS-03-c1, Fluxo principal - Fluxo para visualizar um post, Sistema, P1, Passou
+TS-04-c1, Fluxo principal - Fluxo para postar uma imagem no Feed do usuário, Sistema, P1,
