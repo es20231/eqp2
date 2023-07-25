@@ -29,7 +29,7 @@ def publicar(request):
     
 def remover(request, id):
     Post.objects.filter(id=id).delete()
-    return render(request, '/')
+    return HttpResponse("registro deletado")
 
 def visualizar(request, id):
     objeto = Post.objects.filter(id=id)
