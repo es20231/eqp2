@@ -74,8 +74,6 @@ def login(request):
 
             if usuario is not None:
                 django_login(request, usuario)
-
-
             
                 # Quando o usuário estiver logado, redireciona para a página de dashboard
                 return redirect(dashboard_views.dashboard)
