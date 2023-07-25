@@ -2,18 +2,20 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from autenticacao.forms import ProfileForm
 from django.contrib import messages
+from .models import Imagem
 
 @login_required(login_url='/autenticacao/login/')
 def dashboard(request):
     """Função que renderiza a página inicial do dashboard"""
 
     if request.method == "POST":
-        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        imagem = Imagem()
 
-        if profile_form.is_valid():
-            profile_form.save()
-            messages.success(request, 'Perfil atualizado com sucesso')
-            return redirect(dashboard)
+        imagem.usuario = request.user
+        imagem.imagem = request.FILES['acao']
+        imagem.save()
+
+        return redirect(dashboard)
         
     else:
         profile_form = ProfileForm(instance=request.user.profile)

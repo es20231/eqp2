@@ -82,7 +82,10 @@
                                     <!-- Dashboard/Galeria -->
                                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <label class="btn-miniatura-post" for="my-file-selector">
-                                            <input id="my-file-selector" type="file" style="display:none;">
+                                            <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                                                <input id="my-file-selector" type = "file" name = "acao" value = "envio_galeria" >
+                                                <button>Submit</button>
+                                            </form>
                                             <span>
                                                 <div class="span2 miniatura">
                                                     <img src="{{ img.imagem.url }}">

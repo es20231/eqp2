@@ -5,8 +5,6 @@ from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
 from django.contrib import messages
 from dashboard import views as dashboard_views
-from .forms import ProfileForm
-from django.contrib.auth.decorators import login_required
 
 def cadastro(request):
     """Função que realiza o cadastro do usuário"""
