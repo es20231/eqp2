@@ -9,7 +9,7 @@
 
 {% block content %}
         <div class="container align-self-start">
-            <link rel="stylesheet" href="{% static 'css/dashboard/dash.css' %}"/>
+            <link rel="stylesheet" href="{% static 'css/dashboard/dash-style.css' %}"/>
             <div class="row">
 
                 <div class="col-lg-4 ">
@@ -21,31 +21,34 @@
                     <div class="container">
 
                         <div class="row align-items-center" style="padding-top: 20px;">
+
                             <div class="col-3">
                                 <div class="user-thumb user-thumb--edit">
                                     <div class="custom-file">
                                       <input class="custom-file__input" id="photo" accept="image/*" type="file">
                                       <label class="custom-file__label" for="photo">
-                                        <img alt="" class="thumb--lg rounded-circle" src="https://via.placeholder.com/150">
+                                        <img alt="" class="thumb--lg rounded-circle" src="{{ user.profile.foto_de_perfil }}">
                                       </label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-7">
-                                <div class="row" style="padding-top: 20px; padding-bottom: 10px;">
-                                    <div class="col-12">
 
-                                        <h1 class="username">@ingrid_miranda</h1>
-                                        <h2 class="nome-completo">Ingrid Miranda dos Santos</h2>
-                                        <p class="bio">Paz e Amor</p>
-                                        <button id="btn-style">Sair</button>
-                                        
+                                <div class="row" style="padding-top: 20px; padding-bottom: 10px;">
+
+                                    <div class="col-12">
+                                 
+                                        <h1 class="username">@{{ user.username }}</h1>
+                                        <h2 class="nome-completo">{{ user.profile }}</h2>
+                                        <p class="bio">{{ user.profile.descricao_de_perfil }}</p>
+
                                     </div>
+
                                 </div>
                             </div>
-
                             <div class="col-2"></div>
+
                         </div>
 
 
@@ -70,24 +73,8 @@
 
                                     <!-- Feed/Linha do tempo -->
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                    	{% for post in lista_posts reversed %}
-                                    	<label class="btn-miniatura-post">
-                                    		<!--
-                                    		<a href="link do post?">
-                                    		-->
-                                    		<span>
-                                    			<div class="span2 miniatura">
-                                                    <img src="{{ post.imagem.url }}">
-                                    			</div>
-
-                                    			<i class="bi bi-plus-square-dotted"></i>
-                                    		</span>
-                                    		<!--
-                                    		</a>
-                                    		-->
-                                    	</label>
-                                    	{% endfor %}
                                     </div>
+
 
                                     <!-- Dashboard/Galeria -->
                                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -95,7 +82,7 @@
                                             <input id="my-file-selector" type="file" style="display:none;">
                                             <span>
                                                 <div class="span2 miniatura">
-                                                    <img src="{% static 'lupa.png' %}">
+                                                    <img src="{{ img.imagem.url }}">
                                                 </div>
 
                                                 <i class="bi bi-plus-square-dotted"></i>
