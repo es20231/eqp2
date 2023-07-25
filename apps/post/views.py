@@ -25,7 +25,6 @@ def publicar(request):
         novo_post.imagem = imagem_post
         novo_post.data_de_publicacao = data_de_publicacao_post
         novo_post.save()
-        return HttpResponse()
         return render(request, 'post/detalhes-post.html')
 
 @login_required(login_url='/autenticacao/login/')
