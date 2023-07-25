@@ -1,12 +1,14 @@
 body {
 
+
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     background-color: #141124 !important;
-    
+  
 }
 .container {
+
 
     display: flex !important;
     flex-direction: column !important;
@@ -17,11 +19,13 @@ body {
     height: 480px !important;
     border-radius: 62px !important;
     margin-top: 6% !important;
+
 }
 
 
 #nome-completo, #usuario, #email, #senha, #confima-senha {
     
+
     display: block !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -31,10 +35,12 @@ body {
     width: 300px !important;
     border-radius: 5px !important;
     height: 35px !important;
+
 }
 
 
 #title {
+
 
     text-align: center !important;
     font-family: 'Dancing Script', cursive !important;
@@ -48,15 +54,18 @@ body {
 
 #btn {
 
+
     margin-top: 25px !important;
     margin-bottom: 30px !important;
     background-color: whitesmoke !important;
     border: 0 !important;
     border-radius: 5px !important;
     padding: 3px 7px !important;
+
 }
 
 #footer {
+
 
     align-items: bottom !important;
     font-family: Arial, Helvetica, sans-serif !important;
