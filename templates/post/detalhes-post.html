@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+        <div class="container align-self-start">
+            <link rel="stylesheet" href="{% static 'css/post/detalhes-post-style.css' %}"/>
+            <div class="row row-cols-2">
+                <div class="col">
+
+                    <div class="container-lg align-self-center">
+                        <div class="container-lg-img align-self-center"> <img src="{{ post_form.imagem.url }}"> </div>
+                        
+                        <div class="container-lg-desc align-self-center" id="texto-descricao"> 
+                            <p>Descrição da Publicação</p>
+                            <hr id="linha-horizontal">
+                            {{ post_form.descricao }} 
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
