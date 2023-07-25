@@ -2,7 +2,9 @@ from django.shortcuts import render, HttpResponse
 from django.contrib import messages
 from .forms import PostForm
 from .models import Post
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/autenticacao/login/')
 def publicar(request):
     """Função que publica um post do usuário"""
     if request.method =="GET":
@@ -26,11 +28,13 @@ def publicar(request):
         novo_post.save()
 
         return render(request, 'detalhes-post.html')
-    
+
+@login_required(login_url='/autenticacao/login/')   
 def remover(request, id):
     Post.objects.filter(id=id).delete()
     return HttpResponse("registro deletado")
 
+@login_required(login_url='/autenticacao/login/')
 def visualizar(request, id):
     objeto = Post.objects.filter(id=id)
     return render(request, 'post/detalhes-post.html', {'post_form': objeto[0]})
