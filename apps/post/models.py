@@ -21,3 +21,7 @@ class Post(models.Model):
 
     def __UUID__(self):
         return self.id
+
+    class Meta:
+        verbose_name = 'Postagem'
+        verbose_name_plural = 'Postagens'
