@@ -17,7 +17,7 @@ class Profile(models.Model):
 class Imagem(models.Model):
     id = models.UUIDField(primary_key=True, default = uuid.uuid4)
     usuario = models.ForeignKey(User, on_delete= models.CASCADE)
-    imagem = models.ImageField(upload_to="static/media/", null=True, blank=True)
+    imagem = models.ImageField(upload_to="static/media/galeria", null=True, blank=True)
 
     def __UUID__(self): 
         return self.id
