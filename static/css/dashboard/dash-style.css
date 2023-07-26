@@ -214,17 +214,6 @@ h6 {
     font-size: calc(100% + 1vw + 1vh);
 }
 
-/*
-    .frame
-        width, height = 149px
-
-    .miniatura img
-        width, height = 145px
-*/
-
-
-
-
 .btn-miniatura-post {
   margin-top: 0.9%;
   margin-left: 0.7%;
