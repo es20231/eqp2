@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     'autenticacao',
     'dashboard',
-    'post',
+    'post'
 ]
 
 MIDDLEWARE = [
