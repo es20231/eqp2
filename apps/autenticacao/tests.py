@@ -1,5 +1,4 @@
 from django.test import TestCase, Client
-from django.contrib.auth.models import User
 
 # Create your tests here.
 class RegisterTest(TestCase):
@@ -8,13 +7,17 @@ class RegisterTest(TestCase):
 
     def test_cadastro(self):
         """Teste de cadastro de usuário"""
-
-        # Teste de cadastro de usuário
-        User.objects.create(username='usuario_teste', email='teste@teste.com', password='teste123')
-
-        # Teste de recuperar usuário cadastrado
-        usuario_cadastrado = User.objects.get(username='usuario_teste')
-        self.assertTrue(usuario_cadastrado)
+        response = self.client.post('/autenticacao/cadastro/', {
+            'nome_completo': 'Usuario Teste 1',
+            'usuario': 'usuario_teste',
+            'email': 'usuarioteste@teste.com',
+            'senha': 'teste123',
+            'senha_confirmada': 'teste123'
+        }, follow=True)
+        
+        # Teste de redirecionamento para a página de login após o cadastro
+        self.assertRedirects(response, '/autenticacao/login/')
+        self.assertTemplateUsed(response, 'autenticacao/login.html')
 
 class LoginTest(TestCase):
     def setUp(self):

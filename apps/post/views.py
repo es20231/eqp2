@@ -53,7 +53,6 @@ def publicar2(request):
 
         # return render(request, 'post/detalhes-post.html')
 
-
 @login_required(login_url='/autenticacao/login/')   
 def remover(request, id):
     Post.objects.filter(id=id).delete()
