@@ -46,7 +46,7 @@
                                             <input type="submit" value="Sair">
                                         </form>
 
-                                        
+
 
                                     </div>
 
@@ -97,7 +97,7 @@
                                         <label class="btn-miniatura-post" for="my-file-selector">
                                             <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
                                                 <input id="my-file-selector" type = "file" name = "acao" value = "envio_galeria" style = "display:none;">
-                                                <button>Submit</button>
+                                                <button>Salvar</button>
                                             </form>
                                             <span>
                                                 <div class="span2 miniatura">
@@ -111,10 +111,16 @@
                                         {% for img in lista_imagens reversed %}
                                             <label class="btn-miniatura-post">
                                                 <span>
+                                                    
+                                                    <form method="POST"  action = "post/publicar/" enctype="multipart/form-data"> {% csrf_token %}
                                                     <div class="span2 miniatura">
-                                                        <img src="{{ img.imagem.url }}">
+                                                        <!-- <input type = "file" id = "input_imagem_galeria" hidden> -->
+                                                        <button type = "submit" id = "button_imagem_galeria" name = "acao" value = "{{ img.imagem.url }} ">
+                                                            <img src="{{ img.imagem.url }} ">
+                                                        </button>
+                                                        
                                                     </div>
-
+                                                    </form>
                                                     <i class="bi bi-plus-square-dotted"></i>
                                                 </span>
                                             </label>

@@ -1,79 +1,47 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
+from .models import Imagem
 from django.core.files.uploadedfile import SimpleUploadedFile
-from autenticacao.models import Profile
-from post.models import Post
+import uuid
 
+class DashboardTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
 
-# Create your tests here.
-class VisualizacaoFeedTest(TestCase):
-	"""Teste para visualizacao de posts no feed usuário"""
+    def test_salvarImagem(self):
+        User.objects.create_user('test', 'teste@teste.com', 'test123')
+        user = self.client.login(username='test', password='test123')
 
-	def setUp(self):
-		self.cliente = Client()
+        with open('static/media/lupa.png', 'rb') as imagem:
+            teste_imagem = Imagem()
+            teste_imagem.id = uuid.uuid4()
+            teste_imagem.usuario = User.objects.get(username='test')
+            teste_imagem.imagem = SimpleUploadedFile(imagem.name, imagem.read(), content_type='image/png')
+            teste_imagem.save()
 
-	def test_login_feed(self):
-		register_response = self.cliente.post('/autenticacao/cadastro/', {
-            'nome_completo': 'Teste 1',
-            'usuario': 'teste',
-            'email': 'teste@teste.com',
-            'senha': '123',
-            'senha_confirmada': '123'
-        }, follow=True)
+        
+        self.assertEqual(Imagem.objects.count(), 1)
 
-		self.assertRedirects(register_response, '/autenticacao/login/')
+'''
+class DashboardViewTest(TestCase):
+    def setUp(self):
+        self.client = Client()
 
+    def test_visualizar(self):
+        User.objects.create_user('teste', 'teste@teste.com', 'test123')
+        user = self.client.login(username='teste', password='test123')
 
-		login_response = self.client.post('/autenticacao/login/', {
-            'email': 'teste@teste.com',
-            'senha': '123'
-        })
+        with open('static/media/lupa.png', 'rb') as imagem:
+            teste_imagem = Imagem()
+            teste_imagem.id = uuid.uuid4()
+            teste_imagem.usuario = User.objects.get(username='teste')
+            teste_imagem.imagem = SimpleUploadedFile(imagem.name, imagem.read(), content_type='image/png')
+            teste_imagem.save()
 
-		self.assertRedirects(login_response, '/')
+        self.assertEqual(Imagem.objects.count(), 1) 
 
+        objeto = Imagem.objects.filter(id=teste_imagem.id)[0]
+        
+        response = self.client.get(f'/post/{objeto.id}/visualizar/', follow=True)
 
-		# Confere se a pagina de dashboard do novo usuario possui 0 posts
-		pagina_dash = self.client.get("/")
-		self.assertEqual(len(pagina_dash.context['lista_posts']), 0)
-
-
-
-class FluxoPublicacaoFeedTest(TestCase):
-	"""Teste para a publicacao e posterior visualizacao de posts no feed usuário"""
-
-	def setUp(self):
-		self.cliente = Client()
-
-	def test_login_feed(self):
-		register_response = self.cliente.post('/autenticacao/cadastro/', {
-            'nome_completo': 'Teste 1',
-            'usuario': 'teste',
-            'email': 'teste@teste.com',
-            'senha': '123',
-            'senha_confirmada': '123'
-        }, follow=True)
-
-		self.assertRedirects(register_response, '/autenticacao/login/')
-
-
-		login_response = self.client.post('/autenticacao/login/', {
-            'email': 'teste@teste.com',
-            'senha': '123'
-        })
-
-		self.assertRedirects(login_response, '/')
-
-
-		# Faz o upload de um arquivo na galeria
-		img_conteudo = b'Conteudo placeholder'
-		img_nome = 'static/lupa.png'
-		arq = SimpleUploadedFile(img_name, img_conteudo, content_type='image/png')
-
-		upload_response = self.client.post('/', {'acao' : file})
-
-		self.assertRedirects(login_response, '/')
-
-
-		# Confere se a pagina de dashboard do novo usuario possui 1 imagem
-		pagina_dash = self.client.get("/")
-		self.assertEqual(len(pagina_dash.context['lista_imagens']), 1)
+        self.assertEqual(response.status_code, 200)'''

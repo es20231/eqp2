@@ -5,6 +5,8 @@
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+.venv
+env
 
 # pyenv 
 .python-version 
