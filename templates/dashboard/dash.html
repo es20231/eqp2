@@ -46,7 +46,7 @@
                                             <input type="submit" value="Sair">
                                         </form>
 
-
+                                        
 
                                     </div>
 
@@ -95,32 +95,26 @@
                                     <!-- Dashboard/Galeria -->
                                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <label class="btn-miniatura-post" for="my-file-selector">
-                                            <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
-                                                <input id="my-file-selector" type = "file" name = "acao" value = "envio_galeria" style = "display:none;">
-                                                <button>Salvar</button>
-                                            </form>
                                             <span>
                                                 <div class="span2 miniatura">
-                                                    <img src="{{ img.imagem.url }}">
+                                                    <img src="{% static 'resources/lupa.png' %}">
                                                 </div>
 
                                                 <i class="bi bi-plus-square-dotted"></i>
                                             </span>
+                                            <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                                                <input id="my-file-selector" type="file" name="acao" value="envio_galeria" style="display:none;">
+                                                <button>Enviar</button>
+                                            </form>
                                         </label>
 
                                         {% for img in lista_imagens reversed %}
                                             <label class="btn-miniatura-post">
                                                 <span>
-                                                    
-                                                    <form method="POST"  action = "post/publicar/" enctype="multipart/form-data"> {% csrf_token %}
                                                     <div class="span2 miniatura">
-                                                        <!-- <input type = "file" id = "input_imagem_galeria" hidden> -->
-                                                        <button type = "submit" id = "button_imagem_galeria" name = "acao" value = "{{ img.imagem.url }} ">
-                                                            <img src="{{ img.imagem.url }} ">
-                                                        </button>
-                                                        
+                                                        <img src="{{ img.imagem.url }}">
                                                     </div>
-                                                    </form>
+
                                                     <i class="bi bi-plus-square-dotted"></i>
                                                 </span>
                                             </label>
