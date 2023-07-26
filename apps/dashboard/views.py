@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from autenticacao.forms import ProfileForm
-from django.contrib import messages
+from .forms import ProfileForm
 from .models import Imagem
 
 @login_required(login_url='/autenticacao/login/')
