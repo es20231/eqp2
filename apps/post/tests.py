@@ -2,6 +2,7 @@ from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from .models import Post
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.utils import timezone
 import uuid
 
 class PostTestCase(TestCase):
@@ -18,6 +19,7 @@ class PostTestCase(TestCase):
             teste_imagem.usuario = User.objects.get(username='test')
             teste_imagem.imagem = SimpleUploadedFile(imagem.name, imagem.read(), content_type='image/png')
             teste_imagem.descricao = 'Teste de publicação'
+            teste_imagem.data_de_publicacao = timezone.now()
             teste_imagem.save()
 
         
@@ -37,6 +39,7 @@ class PostViewTest(TestCase):
             teste_imagem.usuario = User.objects.get(username='teste')
             teste_imagem.imagem = SimpleUploadedFile(imagem.name, imagem.read(), content_type='image/png')
             teste_imagem.descricao = 'Teste de publicação'
+            teste_imagem.data_de_publicacao = timezone.now()
             teste_imagem.save()
 
         self.assertEqual(Post.objects.count(), 1)
