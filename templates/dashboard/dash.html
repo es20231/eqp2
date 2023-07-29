@@ -92,11 +92,17 @@
                                     <!-- Dashboard/Galeria -->
                                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <label class="btn-miniatura-post" for="my-file-selector">
+                                            <span>
+                                                <div class="span2 miniatura">
+                                                    <img src="{% static 'resources/lupa.png' %}">
+                                                </div>
+
+                                                <i class="bi bi-plus-square-dotted"></i>
+                                            </span>
                                             <form method="POST" enctype="multipart/form-data" action="{% url 'upload_imagem' %}"> {% csrf_token %}
-                                                <input type="file" id="my-file-selector" name="envio_galeria" style="display:none">
+                                                <input type="file" multiple accept="image/*" id="my-file-selector" name="envio_galeria" style="display:none">
                                                 <button>Enviar</button>
                                             </form>
-
                                         </label>
 
                                         {% for img in lista_imagens reversed %}

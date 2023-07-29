@@ -4,7 +4,6 @@ from .models import Post
 from dashboard.models import Imagem
 from django.contrib.auth.decorators import login_required
 from dashboard.views import dashboard
-import uuid
 
 @login_required(login_url='/autenticacao/login/')
 def publicar(request, id):

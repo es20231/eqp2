@@ -22,8 +22,12 @@ def dashboard(request):
     return render(request, 'dashboard/dash.html', contexto)
 
 def upload_imagem(request):
-    imagem = Imagem(usuario=request.user, imagem=request.FILES['envio_galeria'])
-    imagem.save()
+    """Função que faz o upload de imagens para a galeria do usuário"""
+
+    for imagem in request.FILES.getlist('envio_galeria'):
+        imagem_1 = Imagem(usuario=request.user, imagem=imagem)
+        imagem_1.save()
+
     return redirect(dashboard)
 
 def novo_post(request):
