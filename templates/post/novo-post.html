@@ -12,20 +12,20 @@
             <div class="row row-cols-2">
 
                 <div class="col">
-
-                    <div class="container-lg align-self-center">
-                        <div class="container-lg-img align-self-center"> <img src="{{ post_form.imagem.url }}"> </div>
-                        
-                        <div class="container-lg-desc align-self-center" id="texto-descricao"> 
-                            <p>Descrição da Publicação</p>
-                            <hr id="linha-horizontal">
-                            <div class="form-group">
-                                <input type="text" id="descricao" placeholder="Descrição da Publicação" name="descricao"></input>
+                
+                    <form method="POST" action="{% url 'publicar_imagem' id=imagem_postar.id %}"> {% csrf_token %}
+                        <div class="container-lg align-self-center">
+                            <div class="container-lg-img align-self-center"> <img src="{{ imagem_postar.imagem.url }}"> </div>
+                            <div class="container-lg-desc align-self-center" id="texto-descricao"> 
+                                <p>Postar Imagem</p>
+                                <hr id="linha-horizontal">
+                                <div class="form-group">
+                                    <input type="text" id="descricao" placeholder="Descrição da Publicação" name="descricao"></input>
+                                </div>
+                                <button id="btn">Publicar</button>
                             </div>
-                            <button id="btn">Publicar</button>
                         </div>
-                    </div>
-
+                    </form>
                 </div>
             </div>
         </div>

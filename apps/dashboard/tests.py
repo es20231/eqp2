@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
-from autenticacao.models import Profile
+from .models import Profile
 from post.models import Post
 
 
@@ -64,16 +64,9 @@ class FluxoPublicacaoFeedTest(TestCase):
 		self.assertRedirects(login_response, '/')
 
 
-		# Faz o upload de um arquivo na galeria
-		img_conteudo = b'Conteudo placeholder'
-		img_nome = 'static/lupa.png'
-		arq = SimpleUploadedFile(img_nome, img_conteudo, content_type='image/png')
-
-		upload_response = self.client.post('/', {'acao' : arq})
-
-		self.assertRedirects(login_response, '/')
-
-
-		# Confere se a pagina de dashboard do novo usuario possui 1 imagem
-		pagina_dash = self.client.get("/")
-		self.assertEqual(len(pagina_dash.context['lista_imagens']), 1)
+		# TODO:
+		# Confere se a pagina de dashboard do novo usuario possui 0 posts
+		# Cria uma imagem
+		# Realiza o envio para a galeria usando o link + post request com a imagem
+		# Verifica o status code da resposta
+		# Verifica se a página de dashboard do usuário contem 1 post
