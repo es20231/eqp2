@@ -1,4 +1,4 @@
-# SNAPture 1.0
+# SNAPture v1.0.0
 
 O SNAPture é uma aplicação para a web que gerencia o compartilhamento de imagens entre seus usuários.
 
