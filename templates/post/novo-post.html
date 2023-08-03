@@ -1,28 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block head-stuff %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/post/detalhes-post-style.css' %}"/>
+{% endblock %}
 {% block content %}
 
         <div class="container align-self-start">
-            <link rel="stylesheet" href="../../static/css/post/novo-post-style.css"/>
 
             <div class="row row-cols-2">
 
                 <div class="col">
-
-                    <div class="container-lg align-self-center">
-                        <div class="container-lg-img align-self-center"> <img src="{{ post_form.imagem.url }}"> </div>
-                        
-                        <div class="container-lg-desc align-self-center" id="texto-descricao"> 
-                            <p>Descrição da Publicação</p>
-                            <hr id="linha-horizontal">
-                            <div class="form-group">
-                                <input type="text" id="descricao" placeholder="Descrição da Publicação"></input>
+                
+                    <form method="POST" action="{% url 'publicar_imagem' id=imagem_postar.id %}"> {% csrf_token %}
+                        <div class="container-lg align-self-center">
+                            <div class="container-lg-img align-self-center"> <img src="{{ imagem_postar.imagem.url }}"> </div>
+                            <div class="container-lg-desc align-self-center" id="texto-descricao"> 
+                                <p>Postar Imagem</p>
+                                <hr id="linha-horizontal">
+                                <div class="form-group">
+                                    <input type="text" id="descricao" placeholder="Descrição da Publicação" name="descricao"></input>
+                                </div>
+                                <button id="btn">Publicar</button>
                             </div>
-                            <button id="btn">Publicar</button>
                         </div>
-                    </div>
-
+                    </form>
                 </div>
             </div>
         </div>
