@@ -15,9 +15,13 @@ class Post(models.Model):
         
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     usuario = models.ForeignKey(User, on_delete= models.CASCADE)
-    imagem = models.ImageField(upload_to='static/media', null=True, validators=[validate_size_value])
+    imagem = models.ImageField(upload_to='static/media/galeria', null=True, validators=[validate_size_value])
     descricao = models.TextField()
     data_de_publicacao = models.DateTimeField(default=datetime.now)
 
     def __UUID__(self):
         return self.id
+
+    class Meta:
+        verbose_name = 'Postagem'
+        verbose_name_plural = 'Postagens'

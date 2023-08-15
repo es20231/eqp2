@@ -45,9 +45,6 @@
                                         <form action="{% url 'logout' %}">
                                             <input type="submit" value="Sair">
                                         </form>
-
-                                        
-
                                     </div>
 
                                 </div>
@@ -56,10 +53,7 @@
 
                         </div>
 
-
                         <hr class="linha-horizontal">
-
-
                         <div class="frame-dash">
 
                             <ul class="nav nav-tabs nav-feed" id="myTab" role="tablist">
@@ -78,19 +72,22 @@
 
                                     <!-- Feed/Linha do tempo -->
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        {% for post in lista_posts reversed %}
+                                        {% for postagem in lista_posts reversed %}
                                             <label class="btn-miniatura-post">
                                                 <span>
-                                                    <div class="span2 miniatura">
-                                                        <img src="{{ post.imagem.url }}">
-                                                    </div>
+                                                    <form method="POST" action="{% url 'detalhes_post' %}">{% csrf_token %}
+                                                        <div class="span2 miniatura">
+                                                            <button type = "submit" id = "button_imagem_postagem" name = "visualizar_postagem" value = "{{ postagem.id }} ">
+                                                                <img src="{{ postagem.imagem.url }}">
+                                                            </button>
+                                                        </div>
+                                                    </form>
 
                                                     <i class="bi bi-plus-square-dotted"></i>
                                                 </span>
                                             </label>
                                         {% endfor %}
                                     </div>
-
 
                                     <!-- Dashboard/Galeria -->
                                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -102,8 +99,8 @@
 
                                                 <i class="bi bi-plus-square-dotted"></i>
                                             </span>
-                                            <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
-                                                <input id="my-file-selector" type="file" name="acao" value="envio_galeria" style="display:none;">
+                                            <form method="POST" enctype="multipart/form-data" action="{% url 'upload_imagem' %}"> {% csrf_token %}
+                                                <input type="file" multiple accept="image/*" id="my-file-selector" name="envio_galeria" style="display:none">
                                                 <button>Enviar</button>
                                             </form>
                                         </label>
@@ -111,10 +108,13 @@
                                         {% for img in lista_imagens reversed %}
                                             <label class="btn-miniatura-post">
                                                 <span>
+                                                    <form method="POST" action="{% url 'novo_post' %}"> {% csrf_token %}
                                                     <div class="span2 miniatura">
-                                                        <img src="{{ img.imagem.url }}">
+                                                        <button type = "submit" id = "button_imagem_galeria" name = "postar_imagem" value = "{{ img.id }} ">
+                                                            <img src="{{ img.imagem.url }} ">
+                                                        </button>
                                                     </div>
-
+                                                    </form>
                                                     <i class="bi bi-plus-square-dotted"></i>
                                                 </span>
                                             </label>
@@ -124,8 +124,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
