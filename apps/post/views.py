@@ -13,7 +13,7 @@ def publicar(request, id):
 
     # Criar novo post
     novo_post = Post()
-    novo_post.imagem = imagem_a_ser_publicada.imagem   
+    novo_post.imagem = imagem_a_ser_publicada.imagem
     novo_post.usuario = request.user
     novo_post.descricao = request.POST.get('descricao')
     novo_post.save()

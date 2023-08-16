@@ -8,6 +8,11 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'first_name', 'last_name']
     
+class PasswordUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['password']
+    
 class ProfileForm(forms.ModelForm):
     foto_de_perfil = forms.ImageField(required=False)
 
