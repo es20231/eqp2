@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import ProfileForm
+from usuarios.models import Profile 
 from .models import Imagem
 from post.models import Post
 import uuid
@@ -9,12 +9,12 @@ import uuid
 def dashboard(request):
     """Função que renderiza a página inicial do dashboard"""
         
-    profile_form = ProfileForm(instance=request.user.profile)
+    profile = Profile.objects.get(usuario=request.user)
     lista_imagens = Imagem.objects.filter(usuario=request.user)
     lista_posts = Post.objects.filter(usuario=request.user)
 
     contexto = {
-        'profile_form': profile_form,
+        'profile': profile,
         'lista_imagens' : lista_imagens,
         'lista_posts' : lista_posts
     }
