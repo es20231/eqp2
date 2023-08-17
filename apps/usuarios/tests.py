@@ -1,3 +1,3 @@
 from django.test import TestCase
 
-# Create your tests here.
+# Teste de verificação de atualização de dados de usuário
