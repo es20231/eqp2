@@ -18,7 +18,6 @@ class Post(models.Model):
     imagem = models.ImageField(upload_to='static/media/galeria', null=True, validators=[validate_size_value])
     descricao = models.TextField()
     data_de_publicacao = models.DateTimeField(default=datetime.now)
-    #teste da putaiada
     likes = models.ManyToManyField(User, related_name= 'likes_post')
     dislikes = models.ManyToManyField(User, related_name= 'dislikes_post')
 

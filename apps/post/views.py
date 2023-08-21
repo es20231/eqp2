@@ -39,8 +39,14 @@ def dar_like(request, id):
         if user not in post.likes.all() and user not in post.dislikes.all():
             post.likes.add(user)
             post.save()
-    #n sei como dar o return por enquanto
-    return redirect(visualizar)
+    lista_likes = post.likes.all()
+    lista_dislikes = post.dislikes.all()
+    contexto = {
+        'lista_likes': lista_likes,
+        'lista_dislikes': lista_dislikes,
+        'visualizar_postagem': post
+    }
+    return render(request, 'post/detalhes-post.html', contexto)
 
 def dar_dislike(request, id):
     post = Post.objects.get(id=id)
@@ -50,5 +56,11 @@ def dar_dislike(request, id):
         if user not in post.likes.all() and user not in post.dislikes.all():
             post.dislikes.add(user)
             post.save()
-    #n sei como dar o return por enquanto
-    return redirect(visualizar)
+    lista_likes = post.likes.all()
+    lista_dislikes = post.dislikes.all()
+    contexto = {
+        'lista_likes': lista_likes,
+        'lista_dislikes': lista_dislikes,
+        'visualizar_postagem': post
+    }
+    return render(request, 'post/detalhes-post.html', contexto)
