@@ -1,42 +1,36 @@
 body {
     background-color: #141124 !important;
-    display: inline-block;
 }
 
-div {
-    display: inline-block;
-}
-
-.container{
+.container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: start;
 }
 
-.container-lg{
+.container-lg {
     display: flex;
-    align-items: center;
-    margin: 15%;
-    margin-left: 50%;
-    border: 1px solid #8083D9 !important;
-    height: 800px;
-    width: 1400px;
+    align-items: start;
+    margin-top: 5%;
+    margin-left: 15%;
 }
 
-.container-lg-img{
-    margin-left: 11%;
+.container-lg-img {
+
     display: flex;
     border: 1px solid #8083D9 !important;
-    height: 500px;
-    width: 500px;
+    height: 400px;
+    width: 400px;
 
 }
 
-.container-lg-desc{
+.container-lg-desc {
     border: 1px solid #8083D9 !important;
-    height: 500px;
-    width: 500px;
-    text-align: center;
+    height: 400px;
+    width: 400px;
+    text-align: start;
+}
+.container-lg-comment{
+    display: flex;
 }
 
 img {
@@ -44,7 +38,23 @@ img {
     width: 100%;
 }
 
-#texto-descricao{
+input {
+    border-top: none;
+    border-right: none;
+    border-top: 1px solid #8083D9 !important;
+    border-right: 1px solid #8083D9 !important;
+    border-bottom: none;
+    border-right: none;
+    font-family: Inter;
+    color: #D9D9D9;
+    font-size: 12px;
+    background-color: #141124;
+    margin-top: 82%;
+    height: 30px;
+    width: 300px;
+}
+
+#texto-descricao {
     color: #D9D9D9;
     font-family: Inter;
     font-size: 20px;
@@ -53,11 +63,44 @@ img {
     line-height: normal;
 }
 
-p{
-    font-size: 35px;
-    margin: 5%;
+#descricao {
+
+    font-family: Inter !important;
 }
 
-#linha-horizontal{
+#btn-sair{
+
+    align-self: flex-end;
+    width: 50px;
+    height: 20px;
+    border-radius: 5px;
     border: 1px solid #8083D9 !important;
+}
+
+
+.bi{
+    
+    margin-left: 4%;
+    color: #8083D9;
+}
+
+p {
+    font-size: 20px;
+    margin: 2%;
+    font-family: 'Dancing Script', cursive !important;
+}
+
+button {
+    align-items: end;
+    align-self: flex-end;
+    background-color: #141124;
+    margin-top: 25%;
+    border: 1px solid #8083D9 !important;
+    border-radius: 8px;
+    color: whitesmoke;
+    font-size: small;
+    font-family: Inter;
+    width: 100px;
+    height: 30px;
+
 }
