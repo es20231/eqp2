@@ -30,3 +30,25 @@ def visualizar(request, id):
     """Função que visualiza um post do usuário"""
     objeto = Post.objects.get(id=id)
     return render(request, 'post/detalhes-post.html', {'post_form': objeto})
+
+def dar_like(request, id):
+    post = Post.objects.get(id=id)
+    
+    if request.method == 'POST':
+        user = request.user
+        if user not in post.likes.all() and user not in post.dislikes.all():
+            post.likes.add(user)
+            post.save()
+    #n sei como dar o return por enquanto
+    return redirect(visualizar)
+
+def dar_dislike(request, id):
+    post = Post.objects.get(id=id)
+    
+    if request.method == 'POST':
+        user = request.user
+        if user not in post.likes.all() and user not in post.dislikes.all():
+            post.dislikes.add(user)
+            post.save()
+    #n sei como dar o return por enquanto
+    return redirect(visualizar)

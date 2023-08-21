@@ -8,6 +8,16 @@
 {% block content %}
 
         <div class="container align-self-start">
+           
+            <form action="{% url 'like_post' id=visualizar_postagem.id %}" method="POST"> {% csrf_token %} 
+                <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary">Like</button>
+            </form>
+            <p>Likes: {{ visualizar_postagem.likes.count }}</p>
+
+            <form action="{% url 'dislike_post' id=visualizar_postagem.id %}" method="POST"> {% csrf_token %}
+                <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary">Dislike</button>
+            </form>
+            <p>Dislikes: {{ visualizar_postagem.dislikes.count }}</p>
             <div class="row row-cols-2">
                 <div class="col">
 
