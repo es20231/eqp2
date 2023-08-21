@@ -5,11 +5,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
-        <script src="{% static 'js/infinite.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -109,9 +104,9 @@
                             <div class="frame-miniaturas">
                                 <div class="tab-content" id="myTabContent">
                                     <!-- Feed/Linha do tempo -->
-                                    <div class="tab-pane fade show active infinite-container" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         {% for postagem in lista_posts reversed %}
-                                            <label class="btn-miniatura-post infinite-item">
+                                            <label class="btn-miniatura-post">
                                                 <form method="POST" action="{% url 'detalhes_post' %}">{% csrf_token %}
                                                     <button type = "submit" class="image-button" name = "visualizar_postagem" value = "{{ postagem.id }} ">
                                                         <img src="{{ postagem.imagem.url }}">
@@ -120,10 +115,6 @@
                                                 <i class="bi bi-plus-square-dotted"></i>
                                             </label>
                                         {% endfor %}
-
-                                        {% if lista_posts.has_next %}
-                                            <a class="infinite-more-link" href="?page={{ lista_posts.next_page_number }}"></a>
-                                        {% endif %}
                                     </div>
                                     
                                     <!-- Dashboard/Galeria -->
@@ -163,19 +154,4 @@
                 </div>
             </div>
         </div>
-        
-        {% block javascript %}
-        <script>
-                var infinite = new Waypoint.Infinite({
-                element: $('.infinite-container')[0],
-                onBeforePageLoad: function () {
-                $('.spinner-border').show();
-                },
-                onAfterPageLoad: function () {
-                $('.spinner-border').hide();
-                }
-
-                });
-        </script>
-        {% endblock %}
 {% endblock %}

@@ -16,10 +16,6 @@ def dashboard(request):
     lista_posts = Post.objects.filter(usuario=request.user)
     lista_usuarios_comuns = Profile.objects.filter(usuario__is_staff=False, usuario__is_superuser=False)
 
-    posts_paginator = Paginator(lista_posts, 12)
-    page_posts = request.GET.get('page')
-    lista_posts = posts_paginator.get_page(page_posts)
-
     contexto = {
         'profile': profile,
         'lista_imagens' : lista_imagens,
