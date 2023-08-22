@@ -8,11 +8,8 @@
 {% block content %}
 
         <div class="container align-self-start">
-
             <div class="row row-cols-2">
-
                 <div class="col">
-                
                     <form method="POST" action="{% url 'publicar_imagem' id=imagem_postar.id %}"> {% csrf_token %}
                         <input type = "hidden" name = "postar_imagem" value = "{{imagem_postar.id}}">
                         <input type = "hidden" name = "caminho_da_imagem_a_ser_salva" value = "{{caminho_da_imagem_a_ser_mostrada}}">
@@ -28,15 +25,19 @@
                             </div>
                         </div>
                     </form>
-                    <form method = "POST" action = "{% url 'novo_post' %}"> {% csrf_token %}
-                        <input type = "hidden" name = "postar_imagem" value = "{{imagem_postar.id}}">
-                        <button type = "submit" name = "filtro" id="btn-original" value = "original">Original</button>
-                        <button type = "submit" name = "filtro" id="btn-grayscale" value = "grayscale">GrayScale</button>
-                        <button type = "submit" name = "filtro" id="btn-blur" value = "blur">Blur</button>
-                        <button type = "submit" name = "filtro" id="btn-blur" value = "clahe">Equalização</button>
-                    </form>
+                   
                 </div>
+                
             </div>
+            <div class = "filtros">
+            <form method = "POST" action = "{% url 'novo_post' %}"> {% csrf_token %}
+                <input type = "hidden" name = "postar_imagem" value = "{{imagem_postar.id}}">
+                <button type = "submit" name = "filtro" id="btn-original" value = "original">Original</button>
+                <button type = "submit" name = "filtro" id="btn-grayscale" value = "grayscale">GrayScale</button>
+                <button type = "submit" name = "filtro" id="btn-blur" value = "blur">Blur</button>
+                <button type = "submit" name = "filtro" id="btn-blur" value = "clahe">Equalização</button>
+            </form>
+        </div>
         </div>
 
 {% endblock %}

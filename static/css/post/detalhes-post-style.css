@@ -16,9 +16,9 @@ div {
 .container-lg{
     display: flex;
     align-items: center;
-    margin: 15%;
+     margin: 15%; 
     margin-left: 50%;
-    border: 1px solid #8083D9 !important;
+     border: 1px solid #8083D9 !important; 
     height: 800px;
     width: 1400px;
 }
@@ -33,7 +33,7 @@ div {
 }
 
 .container-lg-desc{
-    border: 1px solid #8083D9 !important;
+    border: 1px solid #8083D9 !important; 
     height: 500px;
     width: 500px;
     text-align: center;
@@ -60,4 +60,8 @@ p{
 
 #linha-horizontal{
     border: 1px solid #8083D9 !important;
+}
+
+.filtros {
+    align-items: center;
 }
