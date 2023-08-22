@@ -1,0 +1,5 @@
+django
+pillow
+opencv-python
+django-crispy-forms
+crispy_bootstrap4
