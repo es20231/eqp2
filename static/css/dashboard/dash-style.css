@@ -249,3 +249,24 @@ img {
     align-self: flex-end; /* Alinha o botão à parte inferior da div */
     margin-right: 0px; /* Define as margens conforme necessário */
 }
+
+.usuario-perfil{
+
+    text-decoration:underline;
+    color: whitesmoke;
+}
+.btn-att, .btn-sair{
+    
+    align-items: end;
+    align-self: flex-end;
+    background-color: #141124;
+    margin-top: 2%;
+    margin-left: 70%;
+    border: 1px solid #8083D9 !important;
+    border-radius: 8px;
+    color: whitesmoke;
+    font-size: small;
+    font-family: Inter;
+    width: 100px;
+    height: 30px;
+}
