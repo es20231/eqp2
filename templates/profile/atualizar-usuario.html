@@ -1,36 +1,60 @@
-{% extends "base.html" %} 
-{% load crispy_forms_tags %} 
+{% extends "base.html" %}
 
 {% block head-stuff %}
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 {% endblock %}
 
 {% block content %}
 <div class="content-section">
-  <div class="media">
-    <img
-      class="rounded-circle account-img"
-      src="{{ user.profile.image.url }}"
-    />
-    <div class="media-body">
-      <h2 class="account-heading">{{ user.username }}</h2>
-      <p class="text-secondary">{{ user.email }}</p>
-    </div>
-  </div>
   <!-- FORM HERE -->
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Profile Info</legend>
-      {{ user_form|crispy }}
-      <!-- User form -->
-      {{ profile_form|crispy }}
-      <!-- Profile form -->
+      <legend class="border-bottom mb-4">Atualizar usuario</legend>
+      
+      {{ user_form.non_field_errors }}
+      {{ profile_form.non_field_errors }}
+      <div class="fieldWrapper">
+          {{ user_form.errors }}
+          <label for='{{ user_form.username }}'> Nome de usuário: </label>
+          {{ user_form.username }}
+      </div>
+
+      <div class="fieldWrapper">
+          {{ user_form.errors }}
+          <label for='{{ user_form.email }}'>Email:</label>
+          {{ user_form.email }}
+      </div>
+
+      <div class="fieldWrapper">
+          {{ user_form.errors }}
+          <label for='{{ user_form.first_name }}'>Nome:</label>
+          {{ user_form.first_name }}
+      </div>
+
+      <div class="fieldWrapper">
+          {{ user_form.errors }}
+          <label for='{{ user_form.last_name }}'>Sobrenome:</label>
+          {{ user_form.last_name }}
+      </div>
+
+      <div class="fieldWrapper">
+          {{ profile_form.errors }}
+          <label for='{{ profile_form.foto_de_perfil }}'>Imagem de perfil:</label>
+          {{ profile_form.foto_de_perfil }}
+      </div>
+
+      <div class="fieldWrapper">
+          <label for='{{ profile_form.descricao_de_perfil }}'>Descrição</label>
+          {{ profile_form.descricao_de_perfil }}
+      </div>
+
+      
     </fieldset>
     <div class="form-group">
-      <button class="btn btn-outline-info" type="submit">Update</button>
+      <button class="btn btn-outline-info" type="submit">Atualizar</button>
     </div>
   </form>
 </div>

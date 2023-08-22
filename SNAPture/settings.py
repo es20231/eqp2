@@ -50,12 +50,6 @@ INSTALLED_APPS += [
     'usuarios',
 ]
 
-# Apps de terceiros
-INSTALLED_APPS += [
-    'crispy_forms',
-    'crispy_bootstrap4',
-]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

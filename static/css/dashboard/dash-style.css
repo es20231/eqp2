@@ -246,8 +246,8 @@ img {
 }
 
 .infinite-more-link {
-    align-self: flex-end; /* Alinha o botão à parte inferior da div */
-    margin-right: 0px; /* Define as margens conforme necessário */
+    align-self: flex-end;
+    margin-right: 0px;
 }
 
 .usuario-perfil{

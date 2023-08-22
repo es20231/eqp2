@@ -1,12 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from usuarios.models import Profile
-from django.contrib.auth.models import User
-from django.core.paginator import Paginator
 from .models import Imagem
-from post.models import Post
+from post.models import Post, Comentario
+from post.forms import ComentarioForm
 import uuid
 
+import os
+import cv2
+from .filtros import *
+from .utils import *
 
 @login_required(login_url='/autenticacao/login/')
 def dashboard(request):
@@ -58,22 +61,68 @@ def upload_imagem(request):
 
     return redirect(dashboard)
 
-
 def novo_post(request):
+    filtro = request.POST.get('filtro')
+    print(f"filtro:{filtro}")
     imagem_id = request.POST.get('postar_imagem').strip()
     imagem_postar = Imagem.objects.get(id=uuid.UUID(imagem_id))
-    return render(request, 'post/novo-post.html', {'imagem_postar': imagem_postar})
+    
+    caminho_da_imagem_a_ser_mostrada = ""
+    
+    # Pega a URL da original
+    if filtro == "original":
+        caminho_da_imagem_a_ser_mostrada = "." + imagem_postar.imagem.url
 
+    # aplica o filtro na cópia da original
+    else:
+        nome_da_imagem_com_filtro = especificar_filtro_no_nome_da_imagem(imagem_postar.imagem.url, filtro)
+        caminho_relativo_da_original = "." + imagem_postar.imagem.url
+        caminho_relativo_da_filtrada = "." + nome_da_imagem_com_filtro
+        
+        img_original = cv2.imread(caminho_relativo_da_original, cv2.IMREAD_COLOR)
 
-def detalhes_post(request):
-    postagem_id = request.POST.get('visualizar_postagem').strip()
-    visualizar_postagem = Post.objects.get(id=uuid.UUID(postagem_id))
+        cv2.imwrite(caminho_relativo_da_filtrada, img_original)
+        copia_da_imagem = cv2.imread(caminho_relativo_da_filtrada, cv2.IMREAD_COLOR)
+
+        caminho_da_imagem_a_ser_mostrada = caminho_relativo_da_filtrada
+
+        if filtro == "blur":
+            filtro = FiltroBlur()
+
+        elif filtro == "grayscale":
+            filtro = FiltroGrayScale()
+
+        elif filtro == "clahe":
+            filtro = FiltroClahe()
+        
+        copia_da_imagem = filtro.aplicar_filtro(copia_da_imagem)
+        cv2.imwrite(caminho_relativo_da_filtrada, copia_da_imagem)
+        
+    caminho_da_imagem_a_ser_mostrada = "../../" + caminho_da_imagem_a_ser_mostrada # ajeita o caminho que vai ser acessado no novo_post.html
+                 
+    return render(request, 'post/novo-post.html', {'imagem_postar': imagem_postar, "caminho_da_imagem_a_ser_mostrada" : caminho_da_imagem_a_ser_mostrada})
+
+def detalhes_post(request, id):
+    visualizar_postagem = Post.objects.get(id=id)
     lista_likes = visualizar_postagem.likes.all()
     lista_dislikes = visualizar_postagem.dislikes.all()
+    
+    if ('comment' in request.POST):
+        comentario_publicado = request.POST.get('comment')
+
+        comentario = Comentario()   
+        comentario.texto = comentario_publicado
+        comentario.id_post = id
+        comentario.usuario = request.user        
+        comentario.save()
+
+    lista_comentarios = Comentario.objects.filter(id_post=id)
+
     contexto = {
         'lista_likes': lista_likes,
         'lista_dislikes': lista_dislikes,
-        'visualizar_postagem': visualizar_postagem
+        'visualizar_postagem' : visualizar_postagem,
+        'lista_comentarios' : lista_comentarios
     }
-    
+
     return render(request, 'post/detalhes-post.html', contexto)
