@@ -25,3 +25,13 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Postagem'
         verbose_name_plural = 'Postagens'
+
+class Comentario(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    id_post = models.UUIDField()
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    texto = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = 'Comentario'
+        verbose_name_plural = 'Comentarios'
