@@ -62,20 +62,6 @@
                                         <h2 class="nome-completo">{{ profile.usuario.profile }}</h2>
                                         <p class="bio">{{ profile.descricao_de_perfil }}</p>
 
-                                        {% if user.username == profile.usuario.username %}
-
-                                        <form action="{% url 'atualizar_usuario' %}">
-                                            <input class="btn-att" type="submit" value="Atualizar informações">
-                                        </form>
-                                        
-                                        <form action="{% url 'atualizar_senha' %}">
-                                            <input class="btn-att" type="submit" value="Atualizar Senha">
-                                        </form>
-
-                                        <form action="{% url 'logout' %}">
-                                            <input class="btn-att" type="submit" value="Sair">
-                                        </form>
-                                        {% endif %}
                                     </div>
 
                                 </div>
@@ -86,6 +72,10 @@
 
                                         <form action="{% url 'atualizar_usuario' %}">
                                             <input class="btn-att" type="submit" value="Editar Perfil">
+                                        </form>
+
+                                        <form action="{% url 'atualizar_senha' %}">
+                                            <input class="btn-att" type="submit" value="Atualizar Senha">
                                         </form>
 
                                         <form action="{% url 'logout' %}">
@@ -118,17 +108,12 @@
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         {% for postagem in lista_posts reversed %}
                                             <label class="btn-miniatura-post">
-                                                <span>
-                                                    <form method="POST" action="{% url 'detalhes_post' id=postagem.id %}">{% csrf_token %}
-                                                        <div class="span2 miniatura">
-                                                            <button type = "submit" name = "visualizar_postagem" value = "{{ postagem.id }} ">
-                                                                <img src="{{ postagem.imagem.url }}">
-                                                            </button>
-                                                        </div>
-                                                    </form>
-
-                                                    <i class="bi bi-plus-square-dotted"></i>
-                                                </span>
+                                                <form method="POST" action="{% url 'detalhes_post' id=postagem.id %}">{% csrf_token %}
+                                                    <button type = "submit" class="image-button" name = "visualizar_postagem" value = "{{ postagem.id }} ">
+                                                        <img src="{{ postagem.imagem.url }}">
+                                                    </button>
+                                                </form>
+                                                <i class="bi bi-plus-square-dotted"></i>
                                             </label>
                                         {% endfor %}
                                     </div>
