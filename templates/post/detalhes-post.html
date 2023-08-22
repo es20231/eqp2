@@ -20,32 +20,26 @@
                             <p>Descrição da postagem</p>
                             <hr id="linha-horizontal">
                             {{ visualizar_postagem.descricao }}
+
+                            <div class="container-lg-comment">
+                                <form method="POST" action="{% url 'detalhes_post' id=visualizar_postagem.id %}"> {% csrf_token %}
+                                    <input type="text" id="comment" placeholder="Comentario" name="comment"></input>
+                                    <button>Comentar</button>
+                                </form>
+                            </div>
+
                         </div>
                     </div>
 
-                    <div class="container-lg-coment">
-                        <h4>Teste</h4>
-                    </div>
+                    <!-- Placeholder -->
+                    {% for comentario in lista_comentarios %}
+                        <div class="container-lg align-self-center" id="texto-descricao">
+                            Usuario = {{ comentario.usuario }} <br>
+                            Comentario = {{ comentario.texto }}
+                        </div>
+                    {% endfor %}
+                    <!-- Placeholder -->
 
-                    <div class="container-lg-coment">
-                        <h4>Teste</h4>
-                    </div>
-
-                    <div class="container-lg-coment">
-                        <h4>Teste</h4>
-                    </div>
-
-                    <div class="container-lg-coment">
-                        <h4>Teste</h4>
-                    </div>
-
-                    <div class="container-lg-coment">
-                        <h4>Teste</h4>
-                    </div>
-
-                    <div class="container-lg-coment">
-                        <h4>Teste</h4>
-                    </div>
                 </div>
             </div>
         </div>

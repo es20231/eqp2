@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from usuarios.models import Profile 
 from .models import Imagem
-from post.models import Post
+from post.models import Post, Comentario
+from post.forms import ComentarioForm
 import uuid
 
 @login_required(login_url='/autenticacao/login/')
@@ -35,7 +36,23 @@ def novo_post(request):
     imagem_postar = Imagem.objects.get(id=uuid.UUID(imagem_id))
     return render(request, 'post/novo-post.html', {'imagem_postar': imagem_postar})
 
-def detalhes_post(request):
-    postagem_id = request.POST.get('visualizar_postagem').strip()
-    visualizar_postagem = Post.objects.get(id=uuid.UUID(postagem_id))
-    return render(request, 'post/detalhes-post.html', {'visualizar_postagem': visualizar_postagem})
+def detalhes_post(request, id):
+    visualizar_postagem = Post.objects.get(id=id)
+    
+    if ('comment' in request.POST):
+        comentario_publicado = request.POST.get('comment')
+
+        comentario = Comentario()   
+        comentario.texto = comentario_publicado
+        comentario.id_post = id
+        comentario.usuario = request.user        
+        comentario.save()
+
+    lista_comentarios = Comentario.objects.filter(id_post=id)
+
+    contexto = {
+        'visualizar_postagem' : visualizar_postagem,
+        'lista_comentarios' : lista_comentarios
+    }
+
+    return render(request, 'post/detalhes-post.html', contexto)
