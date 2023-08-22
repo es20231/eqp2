@@ -10,7 +10,7 @@
 {% block content %}
         <div class="container align-self-start">
             <link rel="stylesheet" href="{% static 'css/dashboard/dash-style.css' %}"/>
-            <div class="row">
+            <div class="row">   
                 
                 <div class="col-lg-4" style="padding-top: 20px;">
 
@@ -134,7 +134,6 @@
                                                 <i class="bi bi-plus-square-dotted"></i>
                                             </span>
                                             <form method="POST" enctype="multipart/form-data" action="{% url 'upload_imagem' %}"> {% csrf_token %}
-                                                <input type = "hidden" name = "filtro" valor = "original">
                                                 <input type="file" multiple accept="image/*" id="my-file-selector" name="envio_galeria" style="display:none">
                                                 <button class="enviar-botao">Enviar</button>
                                             </form>
@@ -144,6 +143,7 @@
                                             <label class="btn-miniatura-post" for="my-file-selector">
                                                 <span>
                                                     <form method="POST" action="{% url 'novo_post' %}"> {% csrf_token %}
+                                                        <input name = "filtro" value = "original" type = "hidden">
                                                         <button type = "submit" class="image-button gallery" name = "postar_imagem" value = "{{ img.id }} ">
                                                             <img src="{{ img.imagem.url }} ">
                                                         </button>

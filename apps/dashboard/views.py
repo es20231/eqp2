@@ -63,11 +63,12 @@ def upload_imagem(request):
 
 def novo_post(request):
     filtro = request.POST.get('filtro')
+    print(f"filtro:{filtro}")
     imagem_id = request.POST.get('postar_imagem').strip()
     imagem_postar = Imagem.objects.get(id=uuid.UUID(imagem_id))
     
     caminho_da_imagem_a_ser_mostrada = ""
-   
+    
     # Pega a URL da original
     if filtro == "original":
         caminho_da_imagem_a_ser_mostrada = "." + imagem_postar.imagem.url
@@ -98,7 +99,7 @@ def novo_post(request):
         cv2.imwrite(caminho_relativo_da_filtrada, copia_da_imagem)
         
     caminho_da_imagem_a_ser_mostrada = "../../" + caminho_da_imagem_a_ser_mostrada # ajeita o caminho que vai ser acessado no novo_post.html
-                    
+                 
     return render(request, 'post/novo-post.html', {'imagem_postar': imagem_postar, "caminho_da_imagem_a_ser_mostrada" : caminho_da_imagem_a_ser_mostrada})
 
 def detalhes_post(request, id):
