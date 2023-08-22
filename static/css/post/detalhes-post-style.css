@@ -33,6 +33,17 @@ body {
     display: flex;
 }
 
+.container-likes {
+    display: flex;
+    width: 100px;
+    margin-left: 75%;
+}
+
+.container-descricao{
+
+    border-top: 1px solid #8083D9 !important;
+}
+
 img {
     height: 100%;
     width: 100%;
@@ -88,7 +99,7 @@ p {
     font-family: 'Dancing Script', cursive !important;
 }
 
-button {
+.btn-comment {
     align-items: end;
     align-self: flex-end;
     background-color: #141124;
@@ -101,4 +112,10 @@ button {
     width: 100px;
     height: 30px;
 
+}
+
+.btn-like {
+    
+    background-color: #141124;
+    border: none;
 }

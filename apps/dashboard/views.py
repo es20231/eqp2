@@ -7,23 +7,26 @@ from .models import Imagem
 from post.models import Post
 import uuid
 
+
 @login_required(login_url='/autenticacao/login/')
 def dashboard(request):
     """Função que renderiza a página inicial do dashboard"""
-        
+
     profile = Profile.objects.get(usuario=request.user)
     lista_imagens = Imagem.objects.filter(usuario=request.user)
     lista_posts = Post.objects.filter(usuario=request.user)
-    lista_usuarios_comuns = Profile.objects.filter(usuario__is_staff=False, usuario__is_superuser=False)
+    lista_usuarios_comuns = Profile.objects.filter(
+        usuario__is_staff=False, usuario__is_superuser=False)
 
     contexto = {
         'profile': profile,
-        'lista_imagens' : lista_imagens,
-        'lista_posts' : lista_posts,
-        'lista_usuarios' : lista_usuarios_comuns
+        'lista_imagens': lista_imagens,
+        'lista_posts': lista_posts,
+        'lista_usuarios': lista_usuarios_comuns
     }
 
     return render(request, 'dashboard/dash.html', contexto)
+
 
 @login_required(login_url='/autenticacao/login/')
 def visitar_perfil(request, username):
@@ -34,15 +37,17 @@ def visitar_perfil(request, username):
 
     profile = Profile.objects.get(usuario__username=username)
     lista_posts = Post.objects.filter(usuario__username=username)
-    lista_usuarios_comuns = Profile.objects.filter(usuario__is_staff=False, usuario__is_superuser=False)
+    lista_usuarios_comuns = Profile.objects.filter(
+        usuario__is_staff=False, usuario__is_superuser=False)
 
     contexto = {
         'profile': profile,
-        'lista_posts' : lista_posts,
-        'lista_usuarios' : lista_usuarios_comuns
+        'lista_posts': lista_posts,
+        'lista_usuarios': lista_usuarios_comuns
     }
 
     return render(request, 'dashboard/dash.html', contexto)
+
 
 def upload_imagem(request):
     """Função que faz o upload de imagens para a galeria do usuário"""
@@ -53,10 +58,12 @@ def upload_imagem(request):
 
     return redirect(dashboard)
 
+
 def novo_post(request):
     imagem_id = request.POST.get('postar_imagem').strip()
     imagem_postar = Imagem.objects.get(id=uuid.UUID(imagem_id))
     return render(request, 'post/novo-post.html', {'imagem_postar': imagem_postar})
+
 
 def detalhes_post(request):
     postagem_id = request.POST.get('visualizar_postagem').strip()
@@ -68,5 +75,5 @@ def detalhes_post(request):
         'lista_dislikes': lista_dislikes,
         'visualizar_postagem': visualizar_postagem
     }
-
+    
     return render(request, 'post/detalhes-post.html', contexto)
