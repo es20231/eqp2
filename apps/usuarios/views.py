@@ -1,10 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm, ProfileForm, PasswordUpdateForm
 from django.shortcuts import redirect
 from dashboard.views import dashboard
 
-# Create your views here.
 @login_required(login_url='/autenticacao/login/')
 def update_user(request):
     """Função que atualiza o perfil do usuário"""
@@ -35,12 +34,14 @@ def update_password(request):
     """Função que atualiza a senha do usuário"""
 
     if request.method == 'POST':
-        password_form = PasswordUpdateForm(request.POST, instance=request.user)
+        nova_senha = request.POST.get('senha')
+        confirmar_nova_senha = request.POST.get('senha_confirmada')
 
-        if password_form.is_valid():
-            password_form.save()
+        if nova_senha == confirmar_nova_senha:
+            request.user.set_password(nova_senha)
+            request.user.save()
 
-        return redirect(dashboard)
+            return redirect(dashboard)
 
     else:
         password_form = PasswordUpdateForm(instance=request.user)
