@@ -15,8 +15,9 @@
                 
                     <form method="POST" action="{% url 'publicar_imagem' id=imagem_postar.id %}"> {% csrf_token %}
                         <input type = "hidden" name = "postar_imagem" value = "{{imagem_postar.id}}">
+                        <input type = "hidden" name = "caminho_da_imagem_a_ser_salva" value = "{{caminho_da_imagem_a_ser_mostrada}}">
                         <div class="container-lg align-self-center">
-                            <div class="container-lg-img align-self-center"> <img src="{{ caminho_da_copia }}"> </div>
+                            <div class="container-lg-img align-self-center"> <img src="{{ caminho_da_imagem_a_ser_mostrada}}"> </div>
                             <div class="container-lg-desc align-self-center" id="texto-descricao"> 
                                 <p>Postar Imagem</p>
                                 <hr id="linha-horizontal">
@@ -32,6 +33,7 @@
                         <button type = "submit" name = "filtro" id="btn-original" value = "original">Original</button>
                         <button type = "submit" name = "filtro" id="btn-grayscale" value = "grayscale">GrayScale</button>
                         <button type = "submit" name = "filtro" id="btn-blur" value = "blur">Blur</button>
+                        <button type = "submit" name = "filtro" id="btn-blur" value = "clahe">Equalização</button>
                     </form>
                 </div>
             </div>

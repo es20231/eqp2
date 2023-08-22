@@ -4,10 +4,11 @@ from usuarios.models import Profile
 from .models import Imagem
 from post.models import Post
 import uuid
+
 import os
 import cv2
 from .filtros import *
-#from ...SNAPture.settings import BASE_DIR
+from .utils import *
 
 @login_required(login_url='/autenticacao/login/')
 def dashboard(request):
@@ -37,36 +38,43 @@ def upload_imagem(request):
 # TODO: Cozinhar esse macarrão(refatorar)
 def novo_post(request):
     filtro = request.POST.get('filtro')
-    #print(filtro)
     imagem_id = request.POST.get('postar_imagem').strip()
     imagem_postar = Imagem.objects.get(id=uuid.UUID(imagem_id))
     
-    # Cria uma cópia da imagem, se não existir, para que os filtros não modifiquem a original. 
-    nome_do_arquivo, extensao = imagem_postar.imagem.url.split(".")
-    if not "(copia)" in nome_do_arquivo:
-        nome_do_arquivo += "(copia)"
-        caminho_da_copia = nome_do_arquivo + "." + extensao
-        #caminho_da_original = os.path.join(BASE_DIR, imagem_postar.imagem.url) # Python não permite acessar pastas superiores para pegar o BASE_DIR
-        #img = cv2.imread("/../.." + imagem_postar.imagem.url, cv2.IMREAD_COLOR) # Não é uma boa solução, pois o diretório atual não é uma info confiável.
-        #print(img) # None. Imagem não encontrada. Problema: acertar o path da imagem correta
-        #cv2.imwrite(BASE_DIR + caminho_da_copia, img) # Cria a cópia.
-    
-    else:
-        caminho_da_copia = nome_do_arquivo + "." + extensao
-    
-    
+    caminho_da_imagem_a_ser_mostrada = ""
+   
+    # Pega a URL da original
     if filtro == "original":
-        pass
+        caminho_da_imagem_a_ser_mostrada = "." + imagem_postar.imagem.url
 
-    elif filtro == "blur":
-        filtro = FiltroBlur()
-
-    elif filtro == "grayscale":
-        filtro = FiltroGrayScale()
+    # aplica o filtro na cópia da original
+    else:
+        nome_da_imagem_com_filtro = especificar_filtro_no_nome_da_imagem(imagem_postar.imagem.url, filtro)
+        caminho_relativo_da_original = "." + imagem_postar.imagem.url
+        caminho_relativo_da_filtrada = "." + nome_da_imagem_com_filtro
         
+        img_original = cv2.imread(caminho_relativo_da_original, cv2.IMREAD_COLOR)
 
-    print(imagem_postar.imagem.url)
-    return render(request, 'post/novo-post.html', {'imagem_postar': imagem_postar, "caminho_da_copia_da_imagem" : caminho_da_copia})
+        cv2.imwrite(caminho_relativo_da_filtrada, img_original)
+        copia_da_imagem = cv2.imread(caminho_relativo_da_filtrada, cv2.IMREAD_COLOR)
+
+        caminho_da_imagem_a_ser_mostrada = caminho_relativo_da_filtrada
+
+        if filtro == "blur":
+            filtro = FiltroBlur()
+
+        elif filtro == "grayscale":
+            filtro = FiltroGrayScale()
+
+        elif filtro == "clahe":
+            filtro = FiltroClahe()
+        
+        copia_da_imagem = filtro.aplicar_filtro(copia_da_imagem)
+        cv2.imwrite(caminho_relativo_da_filtrada, copia_da_imagem)
+        
+    caminho_da_imagem_a_ser_mostrada = "../../" + caminho_da_imagem_a_ser_mostrada # ajeita o caminho que vai ser acessado no novo_post.html
+                    
+    return render(request, 'post/novo-post.html', {'imagem_postar': imagem_postar, "caminho_da_imagem_a_ser_mostrada" : caminho_da_imagem_a_ser_mostrada})
 
 def detalhes_post(request):
     postagem_id = request.POST.get('visualizar_postagem').strip()
