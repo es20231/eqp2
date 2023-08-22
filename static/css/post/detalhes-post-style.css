@@ -15,12 +15,10 @@ body {
 }
 
 .container-lg-img {
-
     display: flex;
     border: 1px solid #8083D9 !important;
     height: 400px;
     width: 400px;
-
 }
 
 .container-lg-desc {
@@ -40,7 +38,6 @@ body {
 }
 
 .container-descricao{
-
     border-top: 1px solid #8083D9 !important;
 }
 
@@ -51,6 +48,7 @@ body {
     border: 1px solid #8083D9 !important;
     height: 20%;
     width: 100%;
+
 }
 
 img {
@@ -127,4 +125,7 @@ p {
     
     background-color: #141124;
     border: none;
+
+.filtros {
+    align-items: center;
 }
