@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from usuarios.models import Profile
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from .models import Imagem
-from post.models import Post
+from post.models import Post, Comentario
+from post.forms import ComentarioForm
 import uuid
 
 
@@ -64,15 +65,28 @@ def novo_post(request):
     imagem_postar = Imagem.objects.get(id=uuid.UUID(imagem_id))
     return render(request, 'post/novo-post.html', {'imagem_postar': imagem_postar})
 
+  
+def detalhes_post(request, id):
+    visualizar_postagem = Post.objects.get(id=id)
+    lista_likes = visualizar_postagem.likes.all()
+    lista_dislikes = visualizar_postagem.dislikes.all()
+    
+    if ('comment' in request.POST):
+        comentario_publicado = request.POST.get('comment')
 
-def detalhes_post(request):
-    postagem_id = request.POST.get('visualizar_postagem').strip()
-    post = Post.objects.get(id=uuid.UUID(postagem_id))
-    lista_likes = post.likes.all()
-    lista_dislikes = post.dislikes.all()
+        comentario = Comentario()   
+        comentario.texto = comentario_publicado
+        comentario.id_post = id
+        comentario.usuario = request.user        
+        comentario.save()
+
+    lista_comentarios = Comentario.objects.filter(id_post=id)
+
     contexto = {
         'lista_likes': lista_likes,
         'lista_dislikes': lista_dislikes,
-        'visualizar_postagem': post
+        'visualizar_postagem' : visualizar_postagem,
+        'lista_comentarios' : lista_comentarios
     }
+
     return render(request, 'post/detalhes-post.html', contexto)
