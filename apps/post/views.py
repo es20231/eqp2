@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
 from .models import Post
 from dashboard.models import Imagem
 from django.contrib.auth.decorators import login_required
@@ -25,8 +24,38 @@ def remover(request, id):
     Post.objects.filter(id=id).delete()
     return render(request, 'dashboard/dash.html')
 
-@login_required(login_url='/autenticacao/login/')
-def visualizar(request, id):
-    """Função que visualiza um post do usuário"""
-    objeto = Post.objects.get(id=id)
-    return render(request, 'post/detalhes-post.html', {'post_form': objeto})
+  
+def dar_like(request, id):
+    post = Post.objects.get(id=id)
+    
+    if request.method == 'POST':
+        user = request.user
+        if user not in post.likes.all() and user not in post.dislikes.all():
+            post.likes.add(user)
+            post.save()
+    lista_likes = post.likes.all()
+    lista_dislikes = post.dislikes.all()
+    contexto = {
+        'lista_likes': lista_likes,
+        'lista_dislikes': lista_dislikes,
+        'visualizar_postagem': post
+    }
+    return render(request, 'post/detalhes-post.html', contexto)
+
+  
+def dar_dislike(request, id):
+    post = Post.objects.get(id=id)
+    
+    if request.method == 'POST':
+        user = request.user
+        if user not in post.likes.all() and user not in post.dislikes.all():
+            post.dislikes.add(user)
+            post.save()
+    lista_likes = post.likes.all()
+    lista_dislikes = post.dislikes.all()
+    contexto = {
+        'lista_likes': lista_likes,
+        'lista_dislikes': lista_dislikes,
+        'visualizar_postagem': post
+    }
+    return render(request, 'post/detalhes-post.html', contexto)
