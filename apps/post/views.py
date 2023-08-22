@@ -24,6 +24,7 @@ def remover(request, id):
     Post.objects.filter(id=id).delete()
     return render(request, 'dashboard/dash.html')
 
+  
 def dar_like(request, id):
     post = Post.objects.get(id=id)
     
@@ -41,6 +42,7 @@ def dar_like(request, id):
     }
     return render(request, 'post/detalhes-post.html', contexto)
 
+  
 def dar_dislike(request, id):
     post = Post.objects.get(id=id)
     
