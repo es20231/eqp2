@@ -28,7 +28,6 @@ class Post(models.Model):
         verbose_name = 'Postagem'
         verbose_name_plural = 'Postagens'
 
-
 class Comentario(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     id_post = models.UUIDField()

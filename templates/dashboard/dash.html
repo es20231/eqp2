@@ -61,7 +61,7 @@
                                         <h1 class="username">@{{ profile.usuario.username }}</h1>
                                         <h2 class="nome-completo">{{ profile.usuario.profile }}</h2>
                                         <p class="bio">{{ profile.descricao_de_perfil }}</p>
-
+                                        
                                     </div>
 
                                 </div>
@@ -72,6 +72,10 @@
 
                                         <form action="{% url 'atualizar_usuario' %}">
                                             <input class="btn-att" type="submit" value="Editar Perfil">
+                                        </form>
+
+                                        <form action="{% url 'atualizar_senha' %}">
+                                            <input class="btn-att" type="submit" value="Atualizar Senha">
                                         </form>
 
                                         <form action="{% url 'logout' %}">
@@ -130,6 +134,7 @@
                                                 <i class="bi bi-plus-square-dotted"></i>
                                             </span>
                                             <form method="POST" enctype="multipart/form-data" action="{% url 'upload_imagem' %}"> {% csrf_token %}
+                                                <input type = "hidden" name = "filtro" valor = "original">
                                                 <input type="file" multiple accept="image/*" id="my-file-selector" name="envio_galeria" style="display:none">
                                                 <button class="enviar-botao">Enviar</button>
                                             </form>
