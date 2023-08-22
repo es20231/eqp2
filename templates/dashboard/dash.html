@@ -134,6 +134,7 @@
                                                 <i class="bi bi-plus-square-dotted"></i>
                                             </span>
                                             <form method="POST" enctype="multipart/form-data" action="{% url 'upload_imagem' %}"> {% csrf_token %}
+                                                <input type = "hidden" name = "filtro" valor = "original">
                                                 <input type="file" multiple accept="image/*" id="my-file-selector" name="envio_galeria" style="display:none">
                                                 <button class="enviar-botao">Enviar</button>
                                             </form>
