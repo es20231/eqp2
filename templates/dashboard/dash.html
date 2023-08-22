@@ -61,7 +61,7 @@
                                         <h1 class="username">@{{ profile.usuario.username }}</h1>
                                         <h2 class="nome-completo">{{ profile.usuario.profile }}</h2>
                                         <p class="bio">{{ profile.descricao_de_perfil }}</p>
-
+                                        
                                     </div>
 
                                 </div>
@@ -108,12 +108,17 @@
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         {% for postagem in lista_posts reversed %}
                                             <label class="btn-miniatura-post">
-                                                <form method="POST" action="{% url 'detalhes_post' id=postagem.id %}">{% csrf_token %}
-                                                    <button type = "submit" class="image-button" name = "visualizar_postagem" value = "{{ postagem.id }} ">
-                                                        <img src="{{ postagem.imagem.url }}">
-                                                    </button>
-                                                </form>
-                                                <i class="bi bi-plus-square-dotted"></i>
+                                                <span>
+                                                    <form method="POST" action="{% url 'detalhes_post' id=postagem.id %}">{% csrf_token %}
+                                                        <div class="span2 miniatura">
+                                                            <button type = "submit" name = "visualizar_postagem" value = "{{ postagem.id }} ">
+                                                                <img src="{{ postagem.imagem.url }}">
+                                                            </button>
+                                                        </div>
+                                                    </form>
+
+                                                    <i class="bi bi-plus-square-dotted"></i>
+                                                </span>
                                             </label>
                                         {% endfor %}
                                     </div>
@@ -138,10 +143,7 @@
                                             <label class="btn-miniatura-post" for="my-file-selector">
                                                 <span>
                                                     <form method="POST" action="{% url 'novo_post' %}"> {% csrf_token %}
-                                                    <input name = "filtro" value = "original" type = "hidden">
-                                                    <div class="span2 miniatura">
-                                                        <button type = "submit" class = "image-button gallery" id = "button_imagem_galeria" name = "postar_imagem" value = "{{ img.id }} ">
-
+                                                        <button type = "submit" class="image-button gallery" name = "postar_imagem" value = "{{ img.id }} ">
                                                             <img src="{{ img.imagem.url }} ">
                                                         </button>
                                                     </form>
