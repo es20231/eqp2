@@ -14,12 +14,12 @@
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Change password</legend>
-        <input type="text" placeholder="New password"></input><br />
-        <input type="text" placeholder="Confirm password"></input>
+      <legend class="border-bottom mb-4">Atualizar senha</legend>
+        <input type="password" placeholder="Nova senha" name="senha"></input><br />
+        <input type="password" placeholder="Confirme a senha" name="senha_confirmada"></input>
     </fieldset>
     <div class="form-group">
-      <button class="btn btn-outline-info" type="submit">Update</button>
+      <button class="btn btn-outline-info" type="submit">Atualizar</button>
     </div>
   </form>
 </div>
