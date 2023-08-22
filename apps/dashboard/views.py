@@ -67,12 +67,13 @@ def novo_post(request):
 
 def detalhes_post(request):
     postagem_id = request.POST.get('visualizar_postagem').strip()
-    post = Post.objects.get(id=uuid.UUID(postagem_id))
-    lista_likes = post.likes.all()
-    lista_dislikes = post.dislikes.all()
+    visualizar_postagem = Post.objects.get(id=uuid.UUID(postagem_id))
+    lista_likes = visualizar_postagem.likes.all()
+    lista_dislikes = visualizar_postagem.dislikes.all()
     contexto = {
         'lista_likes': lista_likes,
         'lista_dislikes': lista_dislikes,
-        'visualizar_postagem': post
+        'visualizar_postagem': visualizar_postagem
     }
+    
     return render(request, 'post/detalhes-post.html', contexto)
