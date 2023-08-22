@@ -170,8 +170,8 @@ a {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    grid-auto-rows: 180px; /* Altura das miniaturas */
-    gap: 7px; /* Espaço entre as miniaturas */
+    grid-auto-rows: 180px;
+    gap: 7px;
     background-color: #141124 !important;
 }
 
@@ -179,6 +179,7 @@ a {
     width: 200px;
     height: 200px;
 }
+
 .post_legenda{
     width: 10px;
     height: 10px;
