@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Post
+from .models import Post, Comentario
 from dashboard.models import Imagem
 from django.contrib.auth.decorators import login_required
 from dashboard.views import dashboard
@@ -37,9 +37,12 @@ def dar_like(request, id):
             post.save()
     lista_likes = post.likes.all()
     lista_dislikes = post.dislikes.all()
+    lista_comentarios = Comentario.objects.filter(id_post=id)
+
     contexto = {
         'lista_likes': lista_likes,
         'lista_dislikes': lista_dislikes,
+        'lista_comentarios': lista_comentarios,
         'visualizar_postagem': post
     }
     return render(request, 'post/detalhes-post.html', contexto)
@@ -55,9 +58,12 @@ def dar_dislike(request, id):
             post.save()
     lista_likes = post.likes.all()
     lista_dislikes = post.dislikes.all()
+    lista_comentarios = Comentario.objects.filter(id_post=id)
+
     contexto = {
         'lista_likes': lista_likes,
         'lista_dislikes': lista_dislikes,
+        'lista_comentarios': lista_comentarios,
         'visualizar_postagem': post
     }
     return render(request, 'post/detalhes-post.html', contexto)
