@@ -27,10 +27,11 @@ def cadastro(request):
             return redirect(cadastro)
 
         # Verifica se o usuário já existe
-        email_existe = User.objects.filter(email=email).exists()
+        usuario_existe = User.objects.filter(username=usuario).first()
+        email_existe = User.objects.filter(email=email).first()
 
-        if email_existe:
-            messages.error(request, 'Email já cadastrado')
+        if usuario_existe or email_existe:
+            messages.error(request, 'Usuário já cadastrado')
             return redirect(cadastro)
         
         else:
