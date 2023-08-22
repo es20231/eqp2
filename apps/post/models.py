@@ -14,10 +14,12 @@ class Post(models.Model):
             return arquivo
         
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    usuario = models.ForeignKey(User, on_delete= models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     imagem = models.ImageField(upload_to='static/media/galeria', null=True, validators=[validate_size_value])
     descricao = models.TextField()
     data_de_publicacao = models.DateTimeField(default=datetime.now)
+    likes = models.ManyToManyField(User, related_name= 'likes_post')
+    dislikes = models.ManyToManyField(User, related_name= 'dislikes_post')
 
     def __UUID__(self):
         return self.id
