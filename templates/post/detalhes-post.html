@@ -55,20 +55,33 @@
                             {{ visualizar_postagem.dislikes.count }}
                         </div>
 
+                        <!-- Descricao -->
                         <div class="container-descricao">
                             <p id="descricao">{{ visualizar_postagem.descricao }}</p>
                         </div>
-                        <div class="container-lg-comments">
-                    
+
+                        <!-- Caixa de Comentarios -->
+                        <div class="container-lg-comments" style="overflow-y: auto;">
+                            {% for comentario in lista_comentarios %}
+                                <div class="container-lg align-self-center" id="texto-descricao">
+                                    <p class="conteudo-coment">
+                                        {{ comentario.usuario }}
+                                        <br>
+                                        {{ comentario.texto }} 
+                                    </p>
+                                </div>
+                            {% endfor %}
                         </div>
 
-                        <div class="container-lg-comment">
-                            <input type="text" id="comment" placeholder="Comentario" name="comment"></input>
-                            <button class="btn-comment">Comentar</button>
-                        </div>
+                        <!-- Envio de Comentario -->
+                        <form method="POST" action="{% url 'detalhes_post' id=visualizar_postagem.id %}"> {% csrf_token %}
+                            <div class="container-lg-comment">
+                                <input type="text" id="comment" placeholder="Comentario" name="comment"></input>
+                                <button class="btn-comment">Comentar</button>
+                            </div>
+                        </form>
                     </div>
-                </div>
-                
+                </div>    
             </div>
         </div>
 
