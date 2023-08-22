@@ -14,7 +14,8 @@ class PasswordUpdateForm(forms.ModelForm):
         fields = ['password']
     
 class ProfileForm(forms.ModelForm):
-    foto_de_perfil = forms.ImageField(required=False)
+    foto_de_perfil = forms.ImageField(required=False, widget=forms.FileInput)
+    descricao_de_perfil = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows':2}))
 
     class Meta:
         model = Profile

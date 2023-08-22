@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from usuarios.models import Profile
-from django.contrib.auth.models import User
-from django.core.paginator import Paginator
 from .models import Imagem
 from post.models import Post, Comentario
 from post.forms import ComentarioForm
